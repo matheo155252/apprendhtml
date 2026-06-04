@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine 1 - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="dashboard.html">Mon espace</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="course-content">
+            <div class="admin-header">
+                <h2>Semaine 1 : Introduction au HTML</h2>
+                <a href="dashboard.html" class="btn-secondary">← Retour au tableau de bord</a>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 1.1 : Qu'est-ce que le HTML ?</h3>
+                <p><strong>HTML</strong> (HyperText Markup Language) est le langage de balisage standard utilisé pour créer des pages web.</p>
+
+                <h4>Points clés :</h4>
+                <ul>
+                    <li>HTML n'est pas un langage de programmation, c'est un langage de balisage</li>
+                    <li>Il utilise des balises pour définir la structure du contenu</li>
+                    <li>Il est interprété par les navigateurs web</li>
+                    <li>HTML5 est la dernière version (publiée en 2014)</li>
+                </ul>
+
+                <h4>Pourquoi apprendre HTML ?</h4>
+                <ul>
+                    <li>C'est la base de tout site web</li>
+                    <li>Indispensable pour le développement web</li>
+                    <li>Facile à apprendre pour les débutants</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 1.2 : Structure d'un document HTML</h3>
+                <p>Tout document HTML a une structure de base :</p>
+
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Titre de la page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Contenu de la page --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h4>Explication des balises :</h4>
+                <ul>
+                    <li><code>&lt;!DOCTYPE html&gt;</code> : Déclare le type de document (HTML5)</li>
+                    <li><code>&lt;html&gt;</code> : Élément racine du document</li>
+                    <li><code>&lt;head&gt;</code> : Contient les métadonnées (titre, styles, scripts)</li>
+                    <li><code>&lt;title&gt;</code> : Titre affiché dans l'onglet du navigateur</li>
+                    <li><code>&lt;body&gt;</code> : Contenu visible de la page</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 1.3 : Votre première page HTML</h3>
+                <p>Créons votre première page avec du texte et des titres :</p>
+
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Ma première page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Bienvenue sur mon site !&lt;/h1&gt;
+    &lt;p&gt;Ceci est mon premier paragraphe.&lt;/p&gt;
+    &lt;p&gt;HTML est facile à apprendre !&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h4>Les balises de titres :</h4>
+                <ul>
+                    <li><code>&lt;h1&gt;</code> : Titre principal (plus important)</li>
+                    <li><code>&lt;h2&gt;</code> : Sous-titre</li>
+                    <li><code>&lt;h3&gt;</code> : Sous-sous-titre</li>
+                    <li><code>&lt;h4&gt;, &lt;h5&gt;, &lt;h6&gt;</code> : Titres de moindre importance</li>
+                </ul>
+
+                <div class="exercise">
+                    <h4>Exercice 1 : Créez votre page personnelle</h4>
+                    <p>Créez une page HTML avec :</p>
+                    <ul>
+                        <li>Votre nom dans un titre h1</li>
+                        <li>Une courte bio dans un paragraphe</li>
+                        <li>Vos hobbies dans une liste</li>
+                    </ul>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Ma page personnelle&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Votre Nom&lt;/h1&gt;
+    &lt;p&gt;Votre bio courte ici...&lt;/p&gt;
+    &lt;h2&gt;Mes hobbies&lt;/h2&gt;
+    &lt;p&gt;Vos hobbies ici...&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="cta">
+                <h2>Félicitations !</h2>
+                <p>Vous avez terminé la semaine 1. Passons à la semaine 2 !</p>
+                <a href="semaine2.html" class="btn-primary">Semaine 2 →</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        if (!isLoggedIn() || !hasActiveSubscription()) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine 3 - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="dashboard.html">Mon espace</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="course-content">
+            <div class="admin-header">
+                <h2>Semaine 3 : Formulaires et médias</h2>
+                <a href="dashboard.html" class="btn-secondary">← Retour au tableau de bord</a>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 3.1 : Introduction aux formulaires</h3>
+                <p>Les formulaires permettent aux utilisateurs d'entrer des données. La balise principale est <code>&lt;form&gt;</code>.</p>
+
+                <h4>Structure de base :</h4>
+                <pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;!-- Champs du formulaire --&gt;
+&lt;/form&gt;</code></pre>
+
+                <h4>Attributs importants de form :</h4>
+                <ul>
+                    <li><code>action</code> : URL où les données sont envoyées</li>
+                    <li><code>method</code> : Méthode HTTP (GET ou POST)</li>
+                </ul>
+
+                <h4>Éléments de formulaire :</h4>
+                <pre><code>&lt;label for="nom"&gt;Nom :&lt;/label&gt;
+&lt;input type="text" id="nom" name="nom"&gt;</code></pre>
+
+                <h4>Types d'input courants :</h4>
+                <ul>
+                    <li><code>text</code> : Champ de texte</li>
+                    <li><code>email</code> : Adresse email</li>
+                    <li><code>password</code> : Mot de passe (caractères masqués)</li>
+                    <li><code>number</code> : Nombre</li>
+                    <li><code>date</code> : Date</li>
+                    <li><code>checkbox</code> : Case à cocher</li>
+                    <li><code>radio</code> : Bouton radio</li>
+                    <li><code>file</code> : Fichier</li>
+                    <li><code>submit</code> : Bouton d'envoi</li>
+                </ul>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 3.2 : Créer un formulaire complet</h3>
+                <pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;div&gt;
+    &lt;label for="nom"&gt;Nom :&lt;/label&gt;
+    &lt;input type="text" id="nom" name="nom" required&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="email"&gt;Email :&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="message"&gt;Message :&lt;/label&gt;
+    &lt;textarea id="message" name="message" rows="4"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label&gt;
+      &lt;input type="checkbox" name="newsletter"&gt;
+      S'abonner à la newsletter
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit"&gt;Envoyer&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+                <div class="exercise">
+                    <h4>Exercice 3 : Formulaire de contact</h4>
+                    <p>Créez un formulaire de contact avec :</p>
+                    <ul>
+                        <li>Champ nom (text, obligatoire)</li>
+                        <li>Champ email (email, obligatoire)</li>
+                        <li>Champ message (textarea)</li>
+                        <li>Bouton d'envoi</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 3.3 : Médias et iframes</h3>
+
+                <h4>Vidéos (balise video) :</h4>
+                <pre><code>&lt;video width="320" height="240" controls&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  Votre navigateur ne supporte pas la vidéo.
+&lt;/video&gt;</code></pre>
+
+                <h4>Audio (balise audio) :</h4>
+                <pre><code>&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+  Votre navigateur ne supporte pas l'audio.
+&lt;/audio&gt;</code></pre>
+
+                <h4>Iframes (contenu externe) :</h4>
+                <pre><code>&lt;!-- YouTube --&gt;
+&lt;iframe width="560" height="315"
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  frameborder="0"
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+
+&lt;!-- Google Maps --&gt;
+&lt;iframe
+  src="https://www.google.com/maps/embed?pb=..."
+  width="600" height="450"
+  frameborder="0"
+  allowfullscreen&gt;
+&lt;/iframe&gt;</code></pre>
+
+                <p>Attributs utiles pour iframe :</p>
+                <ul>
+                    <li><code>width</code> : Largeur</li>
+                    <li><code>height</code> : Hauteur</li>
+                    <li><code>frameborder</code> : Bordure (0 = aucune)</li>
+                    <li><code>allowfullscreen</code> : Permettre le plein écran</li>
+                </ul>
+            </div>
+
+            <div class="cta">
+                <h2>Félicitations !</h2>
+                <p>Vous avez terminé la semaine 3. Passons à la semaine finale !</p>
+                <a href="semaine4.html" class="btn-primary">Semaine 4 →</a>
+                <br><br>
+                <a href="semaine2.html" class="btn-secondary">← Revoir la semaine 2</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        if (!isLoggedIn() || !hasActiveSubscription()) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

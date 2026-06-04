@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine 2 - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="dashboard.html">Mon espace</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="course-content">
+            <div class="admin-header">
+                <h2>Semaine 2 : Structure et balises</h2>
+                <a href="dashboard.html" class="btn-secondary">← Retour au tableau de bord</a>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 2.1 : Les balises de texte</h3>
+                <p>Découvrons les balises essentielles pour formater le texte :</p>
+
+                <h4>Paragraphe et sauts de ligne :</h4>
+                <pre><code>&lt;p&gt;Ceci est un paragraphe.&lt;/p&gt;
+&lt;p&gt;Ceci est un autre paragraphe.&lt;/p&gt;
+&lt;br&gt; &lt;!-- Saut de ligne --&gt;</code></pre>
+
+                <h4>Mise en forme du texte :</h4>
+                <pre><code>&lt;strong&gt;Texte important (gras)&lt;/strong&gt;
+&lt;em&gt;Texte emphatique (italique)&lt;/em&gt;
+&lt;mark&gt;Texte surligné&lt;/mark&gt;
+&lt;del&gt;Texte barré&lt;/del&gt;
+&lt;ins&gt;Texte inséré&lt;/ins&gt;
+&lt;sub&gt;Indice&lt;/sub&gt;
+&lt;sup&gt;Exposant&lt;/sup&gt;</code></pre>
+
+                <h4>Ligne horizontale :</h4>
+                <pre><code>&lt;hr&gt; &lt;!-- Ligne horizontale --&gt;</code></pre>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 2.2 : Les listes</h3>
+                <p>HTML propose deux types de listes :</p>
+
+                <h4>Liste non ordonnée (puces) :</h4>
+                <pre><code>&lt;ul&gt;
+  &lt;li&gt;Premier élément&lt;/li&gt;
+  &lt;li&gt;Deuxième élément&lt;/li&gt;
+  &lt;li&gt;Troisième élément&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+                <h4>Liste ordonnée (numéros) :</h4>
+                <pre><code>&lt;ol&gt;
+  &lt;li&gt;Première étape&lt;/li&gt;
+  &lt;li&gt;Deuxième étape&lt;/li&gt;
+  &lt;li&gt;Troisième étape&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+                <div class="exercise">
+                    <h4>Exercice 2 : Créez des listes</h4>
+                    <p>Créez une page HTML avec :</p>
+                    <ul>
+                        <li>Une liste non ordonnée de vos 3 films préférés</li>
+                        <li>Une liste ordonnée de vos 3 livres préférés</li>
+                    </ul>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mes préférences&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Mes films préférés&lt;/h1&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Film 1&lt;/li&gt;
+      &lt;li&gt;Film 2&lt;/li&gt;
+      &lt;li&gt;Film 3&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h1&gt;Mes livres préférés&lt;/h1&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Livre 1&lt;/li&gt;
+      &lt;li&gt;Livre 2&lt;/li&gt;
+      &lt;li&gt;Livre 3&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 2.3 : Les liens et les images</h3>
+
+                <h4>Les liens (balise a) :</h4>
+                <pre><code>&lt;a href="https://www.example.com"&gt;Lien vers un site&lt;/a&gt;
+&lt;a href="page2.html"&gt;Lien vers une page locale&lt;/a&gt;
+&lt;a href="#section"&gt;Lien vers une ancre&lt;/a&gt;
+&lt;a href="mailto:email@example.com"&gt;Envoyer un email&lt;/a&gt;
+&lt;a href="tel:+33612345678"&gt;Appeler&lt;/a&gt;</code></pre>
+
+                <h4>Les images (balise img) :</h4>
+                <pre><code>&lt;img src="image.jpg" alt="Description de l'image"&gt;
+&lt;img src="https://example.com/image.png" alt="Image externe"&gt;</code></pre>
+
+                <p>Attributs importants pour img :</p>
+                <ul>
+                    <li><code>src</code> : Chemin de l'image (obligatoire)</li>
+                    <li><code>alt</code> : Texte alternatif (obligatoire pour l'accessibilité)</li>
+                    <li><code>width</code> : Largeur en pixels</li>
+                    <li><code>height</code> : Hauteur en pixels</li>
+                </ul>
+            </div>
+
+            <div class="cta">
+                <h2>Félicitations !</h2>
+                <p>Vous avez terminé la semaine 2. Passons à la semaine 3 !</p>
+                <a href="semaine3.html" class="btn-primary">Semaine 3 →</a>
+                <br><br>
+                <a href="semaine1.html" class="btn-secondary">← Revoir la semaine 1</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        if (!isLoggedIn() || !hasActiveSubscription()) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

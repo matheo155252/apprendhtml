@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine 4 - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="dashboard.html">Mon espace</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="course-content">
+            <div class="admin-header">
+                <h2>Semaine 4 : Pratique avancée</h2>
+                <a href="dashboard.html" class="btn-secondary">← Retour au tableau de bord</a>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 4.1 : Tableaux HTML</h3>
+                <p>Les tableaux permettent d'organiser des données en lignes et colonnes.</p>
+
+                <h4>Structure de base :</h4>
+                <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;En-tête 1&lt;/th&gt;
+      &lt;th&gt;En-tête 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Donnée 1&lt;/td&gt;
+      &lt;td&gt;Donnée 2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Donnée 3&lt;/td&gt;
+      &lt;td&gt;Donnée 4&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+                <h4>Balises des tableaux :</h4>
+                <ul>
+                    <li><code>&lt;table&gt;</code> : Conteneur du tableau</li>
+                    <li><code>&lt;tr&gt;</code> : Ligne (table row)</li>
+                    <li><code>&lt;th&gt;</code> : Cellule d'en-tête (table header)</li>
+                    <li><code>&lt;td&gt;</code> : Cellule de données (table data)</li>
+                    <li><code>&lt;thead&gt;</code> : En-tête du tableau</li>
+                    <li><code>&lt;tbody&gt;</code> : Corps du tableau</li>
+                    <li><code>&lt;tfoot&gt;</code> : Pied du tableau</li>
+                </ul>
+
+                <h4>Attributs utiles :</h4>
+                <ul>
+                    <li><code>colspan</code> : Fusionner des colonnes</li>
+                    <li><code>rowspan</code> : Fusionner des lignes</li>
+                    <li><code>border</code> : Bordure (déconseillé, utiliser CSS)</li>
+                </ul>
+
+                <h4>Exemple avec colspan :</h4>
+                <pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;Titre fusionné&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Cellule 1&lt;/td&gt;
+    &lt;td&gt;Cellule 2&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 4.2 : Divisions et span</h3>
+                <p><code>div</code> et <code>span</code> sont des conteneurs génériques pour structurer et styliser.</p>
+
+                <h4>div (division) :</h4>
+                <p>Élément de bloc, occupe toute la largeur disponible.</p>
+                <pre><code>&lt;div class="container"&gt;
+  &lt;div class="header"&gt;
+    &lt;h1&gt;Mon site&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;div class="content"&gt;
+    &lt;p&gt;Contenu principal&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="footer"&gt;
+    &lt;p&gt;Pied de page&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <h4>span :</h4>
+                <p>Élément en ligne, ne crée pas de nouveau bloc.</p>
+                <pre><code>&lt;p&gt;Ce texte contient un &lt;span class="highlight"&gt;mot surligné&lt;/span&gt; au milieu.&lt;/p&gt;</code></pre>
+
+                <h4>Quand utiliser quoi ?</h4>
+                <ul>
+                    <li><strong>div</strong> : Pour structurer la page (sections, conteneurs)</li>
+                    <li><strong>span</strong> : Pour styler une partie de texte</li>
+                </ul>
+
+                <p class="info" style="background: #d1ecf1; padding: 1rem; border-radius: 5px; margin-top: 1rem;">
+                    💡 <strong>Note :</strong> div et span n'ont pas de signification sémantique. Privilégiez les balises sémantiques comme header, nav, main, footer, article, section quand c'est possible.
+                </p>
+            </div>
+
+            <div class="lesson">
+                <h3>Leçon 4.3 : Projet final</h3>
+                <p>Mettez tout en pratique en créant votre site personnel complet !</p>
+
+                <div class="exercise">
+                    <h4>Projet final : Votre site personnel</h4>
+                    <p>Créez un site personnel complet avec les éléments suivants :</p>
+
+                    <h4>Page d'accueil (index.html) :</h4>
+                    <ul>
+                        <li>En-tête avec votre nom et navigation</li>
+                        <li>Section d'introduction avec votre bio</li>
+                        <li>Section "Projets" avec liste de vos projets</li>
+                        <li>Section "Contact" avec formulaire</li>
+                        <li>Pied de page avec liens sociaux</li>
+                    </ul>
+
+                    <h4>Éléments à inclure :</h4>
+                    <ul>
+                        <li>Structure HTML5 complète (doctype, html, head, body)</li>
+                        <li>Titres hiérarchiques (h1, h2, h3)</li>
+                        <li>Paragraphes et mise en forme de texte</li>
+                        <li>Listes (ordonnées et non ordonnées)</li>
+                        <li>Liens (navigation et externes)</li>
+                        <li>Images avec alt text</li>
+                        <li>Formulaire de contact</li>
+                        <li>Utilisation de div pour la structure</li>
+                        <li>Tableau (ex: pour vos compétences ou projets)</li>
+                    </ul>
+
+                    <h4>Exemple de structure :</h4>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mon Site Personnel&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Votre Nom&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#accueil"&gt;Accueil&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#projets"&gt;Projets&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="accueil"&gt;
+      &lt;h2&gt;À propos de moi&lt;/h2&gt;
+      &lt;img src="profil.jpg" alt="Mon profil"&gt;
+      &lt;p&gt;Votre bio...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="projets"&gt;
+      &lt;h2&gt;Mes projets&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Projet 1&lt;/li&gt;
+        &lt;li&gt;Projet 2&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contact"&gt;
+      &lt;h2&gt;Me contacter&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;!-- Formulaire --&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&copy; 2024 Votre Nom&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="cta" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h2 style="color: white;">🎉 Félicitations !</h2>
+                <p style="color: white;">Vous avez terminé le cours HTML en 4 semaines !</p>
+                <p style="color: white;">Continuez à pratiquer et explorez CSS et JavaScript pour aller plus loin.</p>
+                <a href="dashboard.html" class="btn-primary">Retour au tableau de bord</a>
+                <br><br>
+                <a href="semaine3.html" class="btn-secondary">← Revoir la semaine 3</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        if (!isLoggedIn() || !hasActiveSubscription()) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

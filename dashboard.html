@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon espace - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="programme.html">Programme</a></li>
+                <li><a href="dashboard.html">Mon espace</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>Mon espace</h2>
+                <div id="userInfo"></div>
+            </div>
+
+            <div id="subscriptionStatus"></div>
+
+            <div id="courseAccess"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Vérifier si l'utilisateur est connecté
+        if (!isLoggedIn()) {
+            window.location.href = 'login.html';
+        }
+
+        const user = getCurrentUser();
+
+        // Afficher les informations de l'utilisateur
+        document.getElementById('userInfo').innerHTML = `
+            <p>Bienvenue, ${user.email}</p>
+        `;
+
+        // Afficher le statut de l'abonnement
+        const subscriptionStatusDiv = document.getElementById('subscriptionStatus');
+
+        if (user.subscriptionStatus === 'active') {
+            subscriptionStatusDiv.innerHTML = `
+                <div class="message success" style="margin-bottom: 2rem;">
+                    ✅ Votre abonnement est actif ! Vous avez accès à tous les cours.
+                </div>
+            `;
+        } else {
+            subscriptionStatusDiv.innerHTML = `
+                <div class="message error" style="margin-bottom: 2rem;">
+                    ❌ Vous n'avez pas encore d'abonnement actif.
+                </div>
+                <div class="paypal-container">
+                    <h3>S'abonner pour 2€/mois</h3>
+                    <p>Accédez à tous les cours HTML et exercices</p>
+                    <br>
+                    <a href="https://paypal.me/worldgeek461" target="_blank" class="paypal-button">
+                        Payer via PayPal - 2€/mois
+                    </a>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">
+                        Après le paiement, contactez l'administrateur pour activer votre abonnement.
+                    </p>
+                </div>
+            `;
+        }
+
+        // Afficher l'accès aux cours
+        const courseAccessDiv = document.getElementById('courseAccess');
+
+        if (user.subscriptionStatus === 'active') {
+            courseAccessDiv.innerHTML = `
+                <h3>📚 Vos cours</h3>
+                <div class="feature-grid" style="margin-top: 1.5rem;">
+                    <div class="feature-card">
+                        <h3>Semaine 1</h3>
+                        <p>Introduction au HTML</p>
+                        <br>
+                        <a href="semaine1.html" class="btn-primary">Commencer</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Semaine 2</h3>
+                        <p>Structure et balises</p>
+                        <br>
+                        <a href="semaine2.html" class="btn-primary">Commencer</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Semaine 3</h3>
+                        <p>Formulaires et médias</p>
+                        <br>
+                        <a href="semaine3.html" class="btn-primary">Commencer</a>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Semaine 4</h3>
+                        <p>Pratique avancée</p>
+                        <br>
+                        <a href="semaine4.html" class="btn-primary">Commencer</a>
+                    </div>
+                </div>
+            `;
+        } else {
+            courseAccessDiv.innerHTML = `
+                <div class="message info" style="margin-top: 2rem;">
+                    🔒 Activez votre abonnement pour accéder aux cours.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

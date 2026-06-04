@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="programme.html">Programme</a></li>
+                <li><a href="login.html">Connexion</a></li>
+                <li><a href="register.html" class="btn-primary">S'inscrire</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Connexion</h2>
+            <div id="message"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" required placeholder="********">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Se connecter</button>
+                </div>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Pas encore inscrit ? <a href="register.html">Créez un compte</a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Vérifier si c'est le compte admin sans mot de passe défini
+            if (email === 'rzvoltaylive@gmail.com' && !isAdminPasswordSet()) {
+                // Rediriger vers la page de définition du mot de passe admin
+                window.location.href = 'set-admin-password.html';
+                return;
+            }
+
+            // Connexion
+            const result = loginUser(email, password);
+
+            if (result.success) {
+                if (result.user.isAdmin) {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            } else {
+                showMessage(result.message, 'error');
+            }
+        });
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>

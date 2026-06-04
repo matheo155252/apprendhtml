@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - HTML Master</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">HTML Master - Admin</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="admin.html">Panel Admin</a></li>
+                <li><a href="#" onclick="logout()" class="btn-danger">Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-panel">
+            <div class="admin-header">
+                <h2>Panel Administrateur</h2>
+                <p>Connecté en tant que : rzvoltaylive@gmail.com</p>
+            </div>
+
+            <div id="message"></div>
+
+            <h3>Utilisateurs en attente d'approbation</h3>
+            <div id="pendingUsers"></div>
+
+            <h3 style="margin-top: 3rem;">Tous les utilisateurs</h3>
+            <div id="allUsers"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 HTML Master. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Vérifier si l'utilisateur est admin
+        if (!isAdmin()) {
+            window.location.href = 'login.html';
+        }
+
+        function loadUsers() {
+            const users = getAllUsers();
+            const pendingUsersDiv = document.getElementById('pendingUsers');
+            const allUsersDiv = document.getElementById('allUsers');
+
+            // Filtrer les utilisateurs en attente
+            const pendingUsers = users.filter(u => !u.isAdmin && !u.isApproved);
+
+            if (pendingUsers.length === 0) {
+                pendingUsersDiv.innerHTML = '<p style="color: #27ae60;">Aucun utilisateur en attente.</p>';
+            } else {
+                let pendingHTML = '<table class="user-table"><thead><tr><th>Email</th><th>Date d\'inscription</th><th>Actions</th></tr></thead><tbody>';
+
+                pendingUsers.forEach(user => {
+                    pendingHTML += `
+                        <tr>
+                            <td>${user.email}</td>
+                            <td>${new Date(user.createdAt).toLocaleDateString('fr-FR')}</td>
+                            <td>
+                                <button onclick="approveUser('${user.id}')" class="btn-success">Approuver</button>
+                                <button onclick="rejectUser('${user.id}')" class="btn-danger">Rejeter</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                pendingHTML += '</tbody></table>';
+                pendingUsersDiv.innerHTML = pendingHTML;
+            }
+
+            // Afficher tous les utilisateurs
+            const regularUsers = users.filter(u => !u.isAdmin);
+
+            if (regularUsers.length === 0) {
+                allUsersDiv.innerHTML = '<p>Aucun utilisateur enregistré.</p>';
+            } else {
+                let allUsersHTML = '<table class="user-table"><thead><tr><th>Email</th><th>Statut</th><th>Abonnement</th><th>Date d\'inscription</th><th>Actions</th></tr></thead><tbody>';
+
+                regularUsers.forEach(user => {
+                    const statusClass = user.isApproved ? 'status-approved' : 'status-pending';
+                    const statusText = user.isApproved ? 'Approuvé' : 'En attente';
+
+                    const subStatus = user.subscriptionStatus === 'active' ? '✅ Actif' : '❌ Inactif';
+
+                    allUsersHTML += `
+                        <tr>
+                            <td>${user.email}</td>
+                            <td class="${statusClass}">${statusText}</td>
+                            <td>${subStatus}</td>
+                            <td>${new Date(user.createdAt).toLocaleDateString('fr-FR')}</td>
+                            <td>
+                                ${user.isApproved && user.subscriptionStatus !== 'active' ?
+                                    `<button onclick="activateSubscription('${user.id}')" class="btn-success">Activer abonnement</button>` :
+                                    ''
+                                }
+                                ${user.isApproved ?
+                                    `<button onclick="rejectUser('${user.id}')" class="btn-danger">Supprimer</button>` :
+                                    `<button onclick="approveUser('${user.id}')" class="btn-success">Approuver</button>
+                                     <button onclick="rejectUser('${user.id}')" class="btn-danger">Rejeter</button>`
+                                }
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                allUsersHTML += '</tbody></table>';
+                allUsersDiv.innerHTML = allUsersHTML;
+            }
+        }
+
+        function approveUser(userId) {
+            if (approveUser(userId)) {
+                showMessage('Utilisateur approuvé avec succès', 'success');
+                loadUsers();
+            } else {
+                showMessage('Erreur lors de l\'approbation', 'error');
+            }
+        }
+
+        function rejectUser(userId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+                if (rejectUser(userId)) {
+                    showMessage('Utilisateur supprimé avec succès', 'success');
+                    loadUsers();
+                } else {
+                    showMessage('Erreur lors de la suppression', 'error');
+                }
+            }
+        }
+
+        function activateSubscription(userId) {
+            if (confirm('Confirmer que l\'utilisateur a payé et activer son abonnement ?')) {
+                if (activateSubscription(userId)) {
+                    showMessage('Abonnement activé avec succès', 'success');
+                    loadUsers();
+                } else {
+                    showMessage('Erreur lors de l\'activation', 'error');
+                }
+            }
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+
+        // Charger les utilisateurs au démarrage
+        loadUsers();
+    </script>
+</body>
+</html>
