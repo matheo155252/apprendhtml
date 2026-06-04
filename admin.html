@@ -23,6 +23,9 @@
             <div class="admin-header">
                 <h2>Panel Administrateur</h2>
                 <p>Connecté en tant que : rzvoltaylive@gmail.com</p>
+                <div>
+                    <a href="dashboard.html" class="btn-primary">Accéder aux exercices</a>
+                </div>
             </div>
 
             <div id="message"></div>
@@ -48,8 +51,8 @@
             window.location.href = 'login.html';
         }
 
-        function loadUsers() {
-            const users = getAllUsers();
+        async function loadUsers() {
+            const users = await getAllUsers();
             const pendingUsersDiv = document.getElementById('pendingUsers');
             const allUsersDiv = document.getElementById('allUsers');
 
@@ -67,8 +70,8 @@
                             <td>${user.email}</td>
                             <td>${new Date(user.createdAt).toLocaleDateString('fr-FR')}</td>
                             <td>
-                                <button onclick="approveUser('${user.id}')" class="btn-success">Approuver</button>
-                                <button onclick="rejectUser('${user.id}')" class="btn-danger">Rejeter</button>
+                                <button onclick="approveUserBtn('${user.id}')" class="btn-success">Approuver</button>
+                                <button onclick="rejectUserBtn('${user.id}')" class="btn-danger">Rejeter</button>
                             </td>
                         </tr>
                     `;
@@ -100,13 +103,13 @@
                             <td>${new Date(user.createdAt).toLocaleDateString('fr-FR')}</td>
                             <td>
                                 ${user.isApproved && user.subscriptionStatus !== 'active' ?
-                                    `<button onclick="activateSubscription('${user.id}')" class="btn-success">Activer abonnement</button>` :
+                                    `<button onclick="activateSubscriptionBtn('${user.id}')" class="btn-success">Activer abonnement</button>` :
                                     ''
                                 }
                                 ${user.isApproved ?
-                                    `<button onclick="rejectUser('${user.id}')" class="btn-danger">Supprimer</button>` :
-                                    `<button onclick="approveUser('${user.id}')" class="btn-success">Approuver</button>
-                                     <button onclick="rejectUser('${user.id}')" class="btn-danger">Rejeter</button>`
+                                    `<button onclick="rejectUserBtn('${user.id}')" class="btn-danger">Supprimer</button>` :
+                                    `<button onclick="approveUserBtn('${user.id}')" class="btn-success">Approuver</button>
+                                     <button onclick="rejectUserBtn('${user.id}')" class="btn-danger">Rejeter</button>`
                                 }
                             </td>
                         </tr>
@@ -118,8 +121,9 @@
             }
         }
 
-        function approveUser(userId) {
-            if (approveUser(userId)) {
+        async function approveUserBtn(userId) {
+            const success = await approveUser(userId);
+            if (success) {
                 showMessage('Utilisateur approuvé avec succès', 'success');
                 loadUsers();
             } else {
@@ -127,9 +131,10 @@
             }
         }
 
-        function rejectUser(userId) {
+        async function rejectUserBtn(userId) {
             if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
-                if (rejectUser(userId)) {
+                const success = await rejectUser(userId);
+                if (success) {
                     showMessage('Utilisateur supprimé avec succès', 'success');
                     loadUsers();
                 } else {
@@ -138,9 +143,10 @@
             }
         }
 
-        function activateSubscription(userId) {
+        async function activateSubscriptionBtn(userId) {
             if (confirm('Confirmer que l\'utilisateur a payé et activer son abonnement ?')) {
-                if (activateSubscription(userId)) {
+                const success = await activateSubscription(userId);
+                if (success) {
                     showMessage('Abonnement activé avec succès', 'success');
                     loadUsers();
                 } else {

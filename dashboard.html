@@ -55,7 +55,16 @@
         // Afficher le statut de l'abonnement
         const subscriptionStatusDiv = document.getElementById('subscriptionStatus');
 
-        if (user.subscriptionStatus === 'active') {
+        if (user.isAdmin) {
+            subscriptionStatusDiv.innerHTML = `
+                <div class="message success" style="margin-bottom: 2rem;">
+                    👑 Administrateur - Vous avez accès à tous les cours et au panel admin.
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <a href="admin.html" class="btn-primary">Accéder au panel admin</a>
+                </div>
+            `;
+        } else if (user.subscriptionStatus === 'active') {
             subscriptionStatusDiv.innerHTML = `
                 <div class="message success" style="margin-bottom: 2rem;">
                     ✅ Votre abonnement est actif ! Vous avez accès à tous les cours.
@@ -83,7 +92,8 @@
         // Afficher l'accès aux cours
         const courseAccessDiv = document.getElementById('courseAccess');
 
-        if (user.subscriptionStatus === 'active') {
+        // L'admin et les utilisateurs avec abonnement actif peuvent accéder aux cours
+        if (user.isAdmin || user.subscriptionStatus === 'active') {
             courseAccessDiv.innerHTML = `
                 <h3>📚 Vos cours</h3>
                 <div class="feature-grid" style="margin-top: 1.5rem;">

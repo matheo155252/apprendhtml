@@ -1,91 +1,66 @@
-// Système d'authentification simple avec localStorage
+// Système d'authentification avec API PHP
 
-// Initialisation des données
-function initializeData() {
-    if (!localStorage.getItem('users')) {
-        // Créer le compte admin principal
-        const adminUser = {
-            id: 'admin',
-            email: 'rzvoltaylive@gmail.com',
-            password: '', // À définir lors de la première connexion
-            isAdmin: true,
-            isApproved: true,
-            createdAt: new Date().toISOString()
-        };
+const API_URL = 'api.php';
 
-        localStorage.setItem('users', JSON.stringify([adminUser]));
-        localStorage.setItem('adminPasswordSet', 'false');
+// Fonction pour appeler l'API
+async function apiCall(action, method = 'GET', data = null) {
+    const options = {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    if (data && method === 'POST') {
+        options.body = JSON.stringify(data);
     }
+
+    if (method === 'GET' && data) {
+        const params = new URLSearchParams(data).toString();
+        return fetch(`${API_URL}?action=${action}&${params}`, options);
+    }
+
+    return fetch(`${API_URL}?action=${action}`, options);
 }
 
 // Vérifier si le mot de passe admin a été défini
-function isAdminPasswordSet() {
-    return localStorage.getItem('adminPasswordSet') === 'true';
+async function isAdminPasswordSet() {
+    const response = await apiCall('check_admin_password', 'GET');
+    const result = await response.json();
+    return result.data.passwordSet;
 }
 
 // Définir le mot de passe admin
-function setAdminPassword(password) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const adminIndex = users.findIndex(u => u.email === 'rzvoltaylive@gmail.com');
-
-    if (adminIndex !== -1) {
-        users[adminIndex].password = password;
-        localStorage.setItem('users', JSON.stringify(users));
-        localStorage.setItem('adminPasswordSet', 'true');
-        return true;
-    }
-
-    return false;
+async function setAdminPassword(password) {
+    const response = await apiCall('set_admin_password', 'POST', { password });
+    const result = await response.json();
+    return result.success;
 }
 
 // Inscrire un nouvel utilisateur
-function registerUser(email, password) {
-    const users = JSON.parse(localStorage.getItem('users'));
-
-    // Vérifier si l'email existe déjà
-    if (users.find(u => u.email === email)) {
-        return { success: false, message: 'Cet email est déjà utilisé' };
-    }
-
-    // Créer le nouvel utilisateur
-    const newUser = {
-        id: Date.now().toString(),
-        email: email,
-        password: password,
-        isAdmin: false,
-        isApproved: false, // En attente d'approbation
-        createdAt: new Date().toISOString(),
-        subscriptionStatus: 'inactive' // Pas encore abonné
-    };
-
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    return { success: true, message: 'Compte créé avec succès. En attente d\'approbation par l\'administrateur.' };
+async function registerUser(email, password) {
+    const response = await apiCall('register', 'POST', { email, password });
+    const result = await response.json();
+    return result;
 }
 
 // Connecter un utilisateur
-function loginUser(email, password) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const user = users.find(u => u.email === email && u.password === password);
+async function loginUser(email, password) {
+    const response = await apiCall('login', 'POST', { email, password });
+    const result = await response.json();
 
-    if (!user) {
-        return { success: false, message: 'Email ou mot de passe incorrect' };
+    if (result.success && result.data) {
+        localStorage.setItem('currentUser', JSON.stringify(result.data.user));
+        localStorage.setItem('token', result.data.token);
     }
 
-    if (!user.isApproved) {
-        return { success: false, message: 'Votre compte est en attente d\'approbation' };
-    }
-
-    // Stocker la session
-    localStorage.setItem('currentUser', JSON.stringify(user));
-
-    return { success: true, user: user };
+    return result;
 }
 
 // Déconnecter l'utilisateur
 function logout() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
     window.location.href = 'login.html';
 }
 
@@ -107,48 +82,36 @@ function isLoggedIn() {
 }
 
 // Obtenir tous les utilisateurs (pour l'admin)
-function getAllUsers() {
-    return JSON.parse(localStorage.getItem('users'));
+async function getAllUsers() {
+    const token = localStorage.getItem('token');
+    const response = await apiCall('get_users', 'GET', { token });
+    const result = await response.json();
+    if (result.success) {
+        return result.data.users;
+    }
+    return [];
 }
 
 // Approuver un utilisateur
-function approveUser(userId) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const userIndex = users.findIndex(u => u.id === userId);
-
-    if (userIndex !== -1) {
-        users[userIndex].isApproved = true;
-        localStorage.setItem('users', JSON.stringify(users));
-        return true;
-    }
-
-    return false;
+async function approveUser(userId) {
+    const response = await apiCall('approve_user', 'POST', { userId });
+    const result = await response.json();
+    return result.success;
 }
 
 // Rejeter un utilisateur
-function rejectUser(userId) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const userIndex = users.findIndex(u => u.id === userId);
-
-    if (userIndex !== -1) {
-        users.splice(userIndex, 1);
-        localStorage.setItem('users', JSON.stringify(users));
-        return true;
-    }
-
-    return false;
+async function rejectUser(userId) {
+    const response = await apiCall('reject_user', 'POST', { userId });
+    const result = await response.json();
+    return result.success;
 }
 
 // Activer l'abonnement d'un utilisateur
-function activateSubscription(userId) {
-    const users = JSON.parse(localStorage.getItem('users'));
-    const userIndex = users.findIndex(u => u.id === userId);
+async function activateSubscription(userId) {
+    const response = await apiCall('activate_subscription', 'POST', { userId });
+    const result = await response.json();
 
-    if (userIndex !== -1) {
-        users[userIndex].subscriptionStatus = 'active';
-        users[userIndex].subscriptionStart = new Date().toISOString();
-        localStorage.setItem('users', JSON.stringify(users));
-
+    if (result.success) {
         // Mettre à jour l'utilisateur actuel si c'est lui
         const currentUser = getCurrentUser();
         if (currentUser && currentUser.id === userId) {
@@ -156,11 +119,9 @@ function activateSubscription(userId) {
             currentUser.subscriptionStart = new Date().toISOString();
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
         }
-
-        return true;
     }
 
-    return false;
+    return result.success;
 }
 
 // Vérifier si l'utilisateur a un abonnement actif
@@ -169,6 +130,3 @@ function hasActiveSubscription() {
     if (!user) return false;
     return user.subscriptionStatus === 'active';
 }
-
-// Initialiser les données au chargement
-initializeData();

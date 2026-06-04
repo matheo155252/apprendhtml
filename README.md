@@ -10,11 +10,16 @@ Site web pour apprendre HTML en 1 mois avec des exercices pratiques.
 - **Abonnement mensuel à 2€ via PayPal**
 - **Exercices pratiques pour chaque semaine**
 - **Tableau de bord utilisateur**
+- **Stockage des données dans un fichier JSON** (fonctionne en ligne !)
+- **API PHP pour la gestion des utilisateurs**
+- **L'admin peut accéder aux exercices sans abonnement**
 
 ## 📁 Structure du projet
 
 ```
 html-course-site/
+├── api.php                 # API PHP pour gérer l'authentification
+├── users.json              # Fichier de stockage des utilisateurs
 ├── index.html              # Page d'accueil
 ├── programme.html          # Présentation du programme
 ├── register.html           # Page d'inscription
@@ -29,15 +34,27 @@ html-course-site/
 ├── css/
 │   └── style.css           # Feuille de style principale
 ├── js/
-│   └── auth.js             # Script d'authentification
+│   └── auth.js             # Script d'authentification (communique avec l'API PHP)
 └── README.md               # Ce fichier
 ```
 
+## 🔧 Configuration requise
+
+- **PHP 7.0 ou supérieur** (pour l'API)
+- **Serveur web** (Apache, Nginx, ou PHP built-in server)
+- **Permissions d'écriture** sur le fichier `users.json`
+
 ## 🔑 Configuration initiale
 
-### 1. Premier lancement
+### 1. Premier lancement local
 
-Ouvrez `index.html` dans votre navigateur.
+Ouvrez un terminal dans le dossier et lancez le serveur PHP :
+```bash
+cd /home/matheo/html-course-site/
+php -S localhost:8000
+```
+
+Puis ouvrez http://localhost:8000 dans votre navigateur.
 
 ### 2. Configuration du compte admin
 
@@ -66,6 +83,30 @@ Le lien PayPal pour les paiements est : https://paypal.me/worldgeek461
 2. **Panel admin** : Vous aurez accès au panel administrateur
 3. **Approbation** : Approuvez ou rejetez les inscriptions
 4. **Activation** : Activez les abonnements après confirmation du paiement
+5. **Accès aux cours** : En tant qu'admin, vous avez accès à tous les exercices sans abonnement
+
+## 🚀 Déploiement sur AMEN
+
+### Étapes pour héberger sur AMEN :
+
+1. **Préparez les fichiers** :
+   ```bash
+   cd /home/matheo/html-course-site/
+   ```
+
+2. **Uploadez les fichiers** :
+   - Utilisez le gestionnaire de fichiers d'AMEN ou un client FTP (FileZilla)
+   - Uploadez tous les fichiers dans le dossier `public_html` ou `www`
+   - Assurez-vous que `users.json` a les permissions d'écriture (chmod 666)
+
+3. **Vérifiez les permissions** :
+   - Le fichier `users.json` doit être accessible en écriture par le serveur PHP
+   - Vous pouvez définir les permissions via FTP ou le panel AMEN
+
+4. **Testez le site** :
+   - Allez sur votre domaine
+   - Testez l'inscription et la connexion
+   - Vérifiez que le fichier `users.json` se remplit correctement
 
 ## 📚 Programme des cours
 
@@ -91,32 +132,38 @@ Le lien PayPal pour les paiements est : https://paypal.me/worldgeek461
 
 ## ⚠️ Important
 
-- Ce site utilise `localStorage` pour stocker les données utilisateurs
-- Les données sont stockées localement dans le navigateur
-- Pour un environnement de production, utilisez un vrai backend avec base de données
-- Le système d'authentification est basique et convient pour un prototype/démonstration
+- Ce site utilise un **fichier JSON** pour stocker les données
+- Les données sont partagées entre tous les utilisateurs (contrairement au localStorage)
+- L'admin peut voir et gérer tous les utilisateurs
+- L'admin a accès aux exercices sans abonnement
+- Pour un environnement de production, envisagez une vraie base de données (MySQL)
+- Le système d'authentification est basique mais fonctionne pour un usage modéré
 - Le mot de passe admin ne peut pas être changé après sa définition initiale
-
-## 🚀 Déploiement
-
-Pour mettre ce site en ligne :
-
-1. Hébergez les fichiers sur un serveur web (Apache, Nginx, etc.)
-2. Ou utilisez des services d'hébergement statique (GitHub Pages, Netlify, Vercel)
-3. Assurez-vous que le lien PayPal est correctement configuré
-4. Pour un vrai système de production, remplacez le localStorage par une base de données
 
 ## 🔒 Sécurité
 
-⚠️ Ce site est un prototype/démonstration. Pour une utilisation en production :
+⚠️ Ce site est amélioré par rapport à localStorage mais reste basique. Pour une utilisation en production :
 
-- Ajoutez un vrai backend (Node.js, PHP, Python, etc.)
-- Utilisez une base de données sécurisée (MySQL, PostgreSQL, MongoDB)
-- Implémentez un vrai système d'authentification avec hachage de mot de passe
-- Ajoutez HTTPS
-- Utilisez des sessions ou des JWT sécurisés
+- Utilisez HTTPS (disponible sur AMEN avec certificat SSL)
+- Implémentez le hachage de mot de passe (password_hash/password_verify en PHP)
 - Validez toutes les entrées utilisateur
-- Implémentez une véritable intégration PayPal avec webhooks
+- Limitez les tentatives de connexion
+- Utilisez une vraie base de données (MySQL) pour plus de sécurité
+- Sauvegardez régulièrement le fichier `users.json`
+
+## 🐛 Dépannage
+
+### Le fichier users.json ne se crée pas
+- Vérifiez les permissions d'écriture du dossier
+- Créez le fichier manuellement avec les permissions 666
+
+### Erreur 500 sur api.php
+- Vérifiez que PHP est installé et actif sur votre serveur
+- Consultez les logs d'erreur du serveur
+
+### Les utilisateurs ne s'enregistrent pas
+- Vérifiez que `users.json` est accessible en écriture
+- Testez l'API directement dans le navigateur
 
 ## 📞 Support
 

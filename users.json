@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "id": "admin",
+      "email": "rzvoltaylive@gmail.com",
+      "password": "",
+      "isAdmin": true,
+      "isApproved": true,
+      "subscriptionStatus": "active",
+      "createdAt": "2024-06-04T00:00:00.000Z"
+    }
+  ],
+  "adminPasswordSet": false
+}

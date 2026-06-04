@@ -137,7 +137,8 @@
 
     <script src="js/auth.js"></script>
     <script>
-        if (!isLoggedIn() || !hasActiveSubscription()) {
+        const user = getCurrentUser();
+        if (!isLoggedIn() || (!user.isAdmin && !hasActiveSubscription())) {
             window.location.href = 'dashboard.html';
         }
     </script>

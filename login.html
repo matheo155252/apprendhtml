@@ -50,7 +50,7 @@
 
     <script src="js/auth.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const email = document.getElementById('email').value;
@@ -58,17 +58,20 @@
             const messageDiv = document.getElementById('message');
 
             // Vérifier si c'est le compte admin sans mot de passe défini
-            if (email === 'rzvoltaylive@gmail.com' && !isAdminPasswordSet()) {
-                // Rediriger vers la page de définition du mot de passe admin
-                window.location.href = 'set-admin-password.html';
-                return;
+            if (email === 'rzvoltaylive@gmail.com') {
+                const passwordSet = await isAdminPasswordSet();
+                if (!passwordSet) {
+                    // Rediriger vers la page de définition du mot de passe admin
+                    window.location.href = 'set-admin-password.html';
+                    return;
+                }
             }
 
             // Connexion
-            const result = loginUser(email, password);
+            const result = await loginUser(email, password);
 
             if (result.success) {
-                if (result.user.isAdmin) {
+                if (result.data.user.isAdmin) {
                     window.location.href = 'admin.html';
                 } else {
                     window.location.href = 'dashboard.html';
